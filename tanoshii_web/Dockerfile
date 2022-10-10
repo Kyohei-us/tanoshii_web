@@ -12,4 +12,5 @@ RUN dotnet publish -c Release -o out
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
 COPY --from=build-env /app/out .
-ENTRYPOINT ["dotnet", "tanoshii_web.dll"]
+# ENTRYPOINT ["dotnet", "tanoshii_web.dll"]
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet tanoshii_web.dll
