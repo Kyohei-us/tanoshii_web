@@ -6,4 +6,19 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
+    <None Remove="Swashbuckle.AspNetCore" />
+    <None Remove="Views\Blockchain\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.9" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Blockchain\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Views\Blockchain\Indexcs.cshtml" />
+  </ItemGroup>
 </Project>
