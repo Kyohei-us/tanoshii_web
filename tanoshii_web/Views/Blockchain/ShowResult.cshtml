@@ -1,0 +1,31 @@
+﻿@page
+@model tanoshii_web.Models.ShowResultModel
+@{
+}
+
+<div style="color:purple">
+    <h4><b>Tx:</b> @ViewBag.numTransactions.Count</h4>
+
+    <p>@ViewBag.bc.Name</p>
+    <div style="display: flex; flex-direction: row;">
+        @foreach (Block block in ViewBag.bc.Blocks)
+        {
+            <div style="border-color: red; border-style: solid;">
+                <p>Block Id: @block.Id</p>
+                @foreach (Transaction tx in block.Transactions)
+                {
+                    <div style="border-color: blue; border-style: solid;">
+                        <h3>Transaction Id: @tx.Id</h3>
+                        <p>Transaction Content: @tx.Content</p>
+                    </div>
+                }
+            </div>
+            <div style="display: flex; flex-direction: column;">
+                <p style="margin: auto;">&#8594;</p>
+            </div>
+        }
+        <div style="display: flex; flex-direction: column;">
+            <p style="margin: auto;">End of Chain</p>
+        </div>
+    </div>
+</div>

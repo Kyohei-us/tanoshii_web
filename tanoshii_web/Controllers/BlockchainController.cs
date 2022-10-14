@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace tanoshii_web
 {
@@ -20,6 +22,55 @@ namespace tanoshii_web
             bc.AddBlock(block1);
             bc.AddBlock(block2);
 
+            ViewBag.bc = bc;
+            return View();
+        }
+
+        public IActionResult CreateForm()
+        {
+            ViewBag.numOfInputs = 10;
+            int maxNumTransactionsPerBlock = 10;
+            var tempListItems = new List<SelectListItem>();
+            for (int i = 0; i < maxNumTransactionsPerBlock; i++)
+            {
+                tempListItems.Add(
+                    new SelectListItem()
+                    {
+                        Value = i.ToString(),
+                        Text = i.ToString()
+                    }
+                );
+            }
+            ViewBag.SelectListItems = tempListItems.ToArray();
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ShowResult(Models.ShowResultModel sr)
+        {
+            var numTransactions = new List<int>();
+
+            foreach (var tx in sr.numTransactions)
+            {
+                if (tx == 0)
+                    continue;
+                numTransactions.Add(tx);
+            }
+
+            ViewBag.numTransactions = numTransactions;
+
+            var bc = new Blockchain(1, "test bc 1");
+            int bid = 11;
+            foreach (int i in numTransactions)
+            {
+                var block1 = new Block(bid);
+                for (int j = 0; j < i; j++)
+                {
+                    block1.AddTransaction(bid*10 + j, $"Jack sends {(int)((i+1)*(j+1) % 10 + 1)} BTC to Alice.");
+                }
+                bc.AddBlock(block1);
+                bid++;
+            }
             ViewBag.bc = bc;
             return View();
         }

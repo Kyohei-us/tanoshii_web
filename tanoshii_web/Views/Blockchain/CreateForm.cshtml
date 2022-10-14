@@ -1,0 +1,31 @@
+﻿@page
+@model tanoshii_web.Models.ShowResultModel
+@{
+}
+
+<div class="text-center">
+    @*<h1 class="display-4">@ViewData["Title"]</h1>*@
+    <p>This is a page for you to create your Blockchain.</p>
+
+    <div>
+        @using (Html.BeginForm("ShowResult", "Blockchain", FormMethod.Post))
+         {
+            <table>
+                @for (int i = 0; i < ViewBag.numOfInputs; i ++){
+                    <tr>
+                        <td>Enter Tx number @(i+1) : </td>
+                        <td>@Html.DropDownListFor(
+                           m => m.numTransactions[i],
+                           (IEnumerable<SelectListItem>)ViewBag.SelectListItems,
+                           0
+                           )</td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="2"><input type="submit" value="Submit Form" /></td>
+                </tr>
+            </table>
+        }
+    </div>
+
+</div>
